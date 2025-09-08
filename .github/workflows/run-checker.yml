@@ -2,7 +2,7 @@ name: Run Checker
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -10,19 +10,16 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      # 1. Checkout repository
       - uses: actions/checkout@v3
 
-      # 2. Make checker executable
       - name: Make checker executable
         run: chmod +x ./checker
 
-      # 3. Run checker and save output
-      - name: Run checker
+      - name: Run checker and save output
         run: ./checker flag --file manifesto.txt > output.txt
 
-      # 4. Upload output as artifact
-      - uses: actions/upload-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
           name: checker-output
           path: output.txt
