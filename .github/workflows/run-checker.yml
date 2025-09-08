@@ -10,16 +10,20 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      # 1. Checkout repository
       - uses: actions/checkout@v3
 
+      # 2. Make checker executable
       - name: Make checker executable
         run: chmod +x ./checker
 
-      - name: Run checker and save output
+      # 3. Run checker and save output
+      - name: Run checker
         run: ./checker flag --file manifesto.txt > output.txt
 
+      # 4. Upload output as artifact (v4)
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: checker-output
           path: output.txt
